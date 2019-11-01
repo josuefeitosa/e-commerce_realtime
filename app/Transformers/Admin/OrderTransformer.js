@@ -3,7 +3,7 @@
 const BumblebeeTransformer = use('Bumblebee/Transformer')
 const UserTransformer = use('App/Transformers/Admin/UserTransformer')
 const CouponTransformer = use('App/Transformers/Admin/CouponTransformer')
-const ItemTransformer = use('App/Transformers/Admin/ItemTransformer')
+const OrderItemTransformer = use('App/Transformers/Admin/OrderItemTransformer')
 const DiscountTransformer = use('App/Transformers/Admin/DiscountTransformer')
 
 /**
@@ -39,7 +39,19 @@ class OrderTransformer extends BumblebeeTransformer {
   }
 
   includeUser(model) {
-    return this.item(model.getRelated('users'), UserTransformer)
+    return this.item(model.getRelated('users'), UserTransformer);
+  }
+
+  includeItems(model){
+    return this.item(model.getRelated('items'), OrderItemTransformer);
+  }
+
+  includeCoupons(model){
+    return this.item(model.getRelated('coupons'), CouponTransformer);
+  }
+
+  includeDiscounts(model){
+    return this.item(model.getRelated('discounts'), DiscountTransformer);
   }
 }
 
